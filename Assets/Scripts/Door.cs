@@ -17,7 +17,7 @@ public class Door : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, angleOffset));
 
         // set code reader color
-        if(CompareTag("DoorKeycard") || CompareTag("Door"))
+        if(CompareTag("DoorKeycard"))
             GetComponent<Renderer>().materials[3].color = color;
 
         // don't allow movement if locked

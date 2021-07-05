@@ -22,7 +22,7 @@ public class NPC : MonoBehaviour
 
     // states
     public float sightRange, attackRange;
-    private bool playerInSightRange, playerInAttackRange;
+    private bool _playerInSightRange, _playerInAttackRange;
 
     private void Awake()
     {
@@ -31,13 +31,28 @@ public class NPC : MonoBehaviour
 
     private void Update()
     {
-        // check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, layerPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, layerPlayer);
+        RaycastHit hit;
+        Vector3 playerPos = player.position;
+        // check for sight range
+        Physics.Raycast(transform.position, playerPos - transform.position, out hit, sightRange, ~gameObject.layer);
+        _playerInSightRange = hit.collider != null && layerPlayer.value == (layerPlayer.value | (1 << hit.collider.gameObject.layer));
+        
+        Debug.DrawRay(transform.position, playerPos - transform.position, Color.red);
+        //Debug.Log((hit.collider != null) + " " + hit.collider.gameObject.layer + " " + layerPlayer.value);
+        //Debug.Log(layerPlayer.value == (layerPlayer.value | (1 << hit.collider.gameObject.layer)));
+        //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        // check attack range
+        Physics.Raycast(transform.position, playerPos - transform.position, out hit, attackRange, ~gameObject.layer);
+        _playerInAttackRange = hit.collider != null && hit.collider.gameObject.layer == layerPlayer.value;
+
+        // actions
+        if (!_playerInSightRange && !_playerInAttackRange) 
+            Patroling();
+        if (_playerInSightRange && !_playerInAttackRange) 
+            ChasePlayer();
+        if (_playerInAttackRange && _playerInSightRange) 
+            AttackPlayer();
     }
 
     private void Patroling()
@@ -68,6 +83,7 @@ public class NPC : MonoBehaviour
 
     private void ChasePlayer()
     {
+        Debug.Log("bum");
         agent.SetDestination(player.position);
     }
 
