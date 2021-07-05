@@ -47,7 +47,9 @@ public class Touch : MonoBehaviour
                                 break;
                             case "Door":
                             case "DoorCompanion":
-                                hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeys());
+                                Key matchingKey = hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeys());
+                                if (matchingKey != null)
+                                    inventory.RemoveKey(matchingKey);
                                 break;
                             case "DoorKeycard":
                             case "DoorKeycardCompanion":

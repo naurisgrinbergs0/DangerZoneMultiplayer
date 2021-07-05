@@ -6,84 +6,110 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    private List<Key> keys = new List<Key>();
-    private List<Key> keycards = new List<Key>();
-    private List<string> tools = new List<string>();
+    private List<Key> _keys = new List<Key>();
+    private List<Key> _keycards = new List<Key>();
+    private List<string> _tools = new List<string>();
 
-    [SerializeField] private Canvas canvasCollect;
-    [SerializeField] private Image tKeycardRed;
-    [SerializeField] private Image tKeycardBlue;
-    [SerializeField] private Image tKeycardGreen;
-    [SerializeField] private Image tKeycardBrown;
-    [SerializeField] private Image tKeycardPink;
-    [SerializeField] private Image tKeycardPurple;
-    [SerializeField] private Image tKeycardOrange;
-    [SerializeField] private Image tKeycardYellow;
-    [SerializeField] private Image tKey;
+    [SerializeField] private Canvas _canvasCollect;
+    [SerializeField] private Image _tKeycardRed;
+    [SerializeField] private Image _tKeycardBlue;
+    [SerializeField] private Image _tKeycardGreen;
+    [SerializeField] private Image _tKeycardBrown;
+    [SerializeField] private Image _tKeycardPink;
+    [SerializeField] private Image _tKeycardPurple;
+    [SerializeField] private Image _tKeycardOrange;
+    [SerializeField] private Image _tKeycardYellow;
+    [SerializeField] private Image _tKey;
 
-    private Image[] tKeys = new Image[8];
+    private Image[] _tKeys = new Image[8];
 
     public void Start()
     {
         // instantiate keys
-        tKey.gameObject.SetActive(false);
+        _tKey.gameObject.SetActive(false);
         for(int i = 0; i < 8; i++)
         {
-            Image keyImg = Instantiate(tKey, canvasCollect.transform) as Image;
-            keyImg.transform.Translate(-(tKey.rectTransform.rect.width / 2) * i, 0, 0);
-            tKeys[i] = keyImg;
+            Image keyImg = Instantiate(_tKey, _canvasCollect.transform) as Image;
+            keyImg.transform.Translate(-(_tKey.rectTransform.rect.width / 2) * i, 0, 0);
+            _tKeys[i] = keyImg;
         }
 
         UpdateCanvas();
     }
 
 
+    public void Update()
+    {
+        // drop key
+        if (Input.GetKey(KeyCode.E))
+        {
+            if(_keys.Count > 0)
+            {
+                
+            }
+        }
+    }
+
+
     public void AddKey(Key key)
     {
-        keys.Add(key);
+        _keys.Add(key);
         UpdateCanvas();
     }
 
     public void AddKeycard(Key keycard)
     {
-        keycards.Add(keycard);
+        _keycards.Add(keycard);
         UpdateCanvas();
     }
 
+    public void RemoveKey(Key key)
+    {
+        _keys.Remove(key);
+        UpdateCanvas();
+    }
+
+    public void RemoveKeycard(Key keycard)
+    {
+        _keycards.Remove(keycard);
+        UpdateCanvas();
+    }
+
+
     public List<Key> GetKeys()
     {
-        return keys;
+        return _keys;
     }
 
     public List<Key> GetKeycards()
     {
-        return keycards;
+        return _keycards;
     }
 
     private void UpdateCanvas()
     {
         // update keys
-        for (int i = 0; i < keys.Count; i++)
-            tKeys[i].gameObject.SetActive(i <= keys.Count);
+        for (int i = 0; i < _tKeys.Length; i++)
+            _tKeys[i].gameObject.SetActive(i <= _keys.Count - 1);
 
         // update keycards
         Dictionary<string, Image> kcs = new Dictionary<string, Image>()
         {
-            { "RED", tKeycardRed }
-            , { "BLUE", tKeycardBlue }
-            , { "GREEN", tKeycardGreen }
-            , { "BROWN", tKeycardBrown }
-            , { "PINK", tKeycardPink }
-            , { "PURPLE", tKeycardPurple }
-            , { "ORANGE", tKeycardOrange }
-            , { "YELLOW", tKeycardYellow }
+            { "RED", _tKeycardRed }
+            , { "BLUE", _tKeycardBlue }
+            , { "GREEN", _tKeycardGreen }
+            , { "BROWN", _tKeycardBrown }
+            , { "PINK", _tKeycardPink }
+            , { "PURPLE", _tKeycardPurple }
+            , { "ORANGE", _tKeycardOrange }
+            , { "YELLOW", _tKeycardYellow }
         };
 
         int cardsTranslated = 0;
         foreach (var kc in kcs) 
         {
             // show available cards & hide other
-            bool enabled = keycards.Find(k => k.code == kc.Key) != null;
+            bool enabled = _keycards.Find(k => k.code == kc.Key) != null;
             kc.Value.gameObject.SetActive(enabled);
 
             // translate cards next to eachother

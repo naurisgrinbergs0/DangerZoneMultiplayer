@@ -39,8 +39,14 @@ public class Door : MonoBehaviour
         }
     }
 
-    public void Toggle(List<Key> keys)
+    /// <summary>
+    /// Opens/Closes door
+    /// If any key unlocks this door it is returned, otherwise - null
+    /// </summary>
+    public Key Toggle(List<Key> keys)
     {
+        Key matchingKey = null;
+
         // check if door is open
         bool isOpen = System.Math.Abs(transform.localRotation.normalized.y) > 0.1;
 
@@ -63,6 +69,8 @@ public class Door : MonoBehaviour
                     isLocked = false; // if was locked then it is unlocked now
                     GetComponent<Rigidbody>().freezeRotation = false; // enable door rotation
                     allowToggle = true;
+
+                    matchingKey = key;
                     break;
                 }
             }
@@ -83,5 +91,7 @@ public class Door : MonoBehaviour
 
             GetComponent<Rigidbody>().AddTorque(dir, ForceMode.Impulse);
         }
+
+        return matchingKey;
     }
 }

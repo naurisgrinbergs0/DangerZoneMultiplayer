@@ -30,4 +30,17 @@ public class Key : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void RemoveFromInventory(Inventory inventory)
+    {
+        // key
+        if (gameObject.CompareTag("Key"))
+        {
+            inventory.RemoveKey(this);
+        }
+        // keycard
+        else if (gameObject.CompareTag("Keycard"))
+        {
+            inventory.RemoveKey(this);
+        }
+    }
 }
