@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 986372f6e78406740846a675a1c925bd
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Great Vibes
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 48e88e4bea2ce8a44954f723963d0b81, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

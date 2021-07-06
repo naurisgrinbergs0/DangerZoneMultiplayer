@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine; 
 
 public class Movement : MonoBehaviour
 {
@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     private float _xRotation = 0f;
     private Vector3 _moveDirection = Vector3.zero;
     private bool _isCrouching = false;
+    public bool ignoreInputs = false;
 
     public Joystick joystickMove;
     public Joystick joystickRotate;
@@ -35,8 +36,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Rotate();
+        if (!ignoreInputs)
+        {
+            Move();
+            Rotate();
+        }
     }
 
     private void Move()

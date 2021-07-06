@@ -83,7 +83,6 @@ public class NPC : MonoBehaviour
 
     private void ChasePlayer()
     {
-        Debug.Log("bum");
         agent.SetDestination(player.position);
     }
 

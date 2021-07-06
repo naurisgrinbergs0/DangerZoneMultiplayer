@@ -1,0 +1,122 @@
+.btn-done {
+    bottom: auto;
+    width: 90%;
+    -unity-font: resource('Fonts & Materials/GreatVibes-Regular');
+    font-size: 39px;
+    background-color: rgba(65, 20, 0, 0.9);
+    color: rgb(221, 182, 158);
+    justify-content: center;
+    align-items: center;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    padding-bottom: 1px;
+    padding-top: 10px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(65, 20, 0, 0.53);
+    border-right-color: rgba(65, 20, 0, 0.53);
+    border-top-color: rgba(65, 20, 0, 0.53);
+    border-bottom-color: rgba(65, 20, 0, 0.53);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    cursor: initial;
+}
+
+.btn-done:hover {
+    bottom: auto;
+    width: 90%;
+    -unity-font: resource('Fonts & Materials/GreatVibes-Regular');
+    font-size: 39px;
+    background-color: rgba(46, 14, 0, 0.9);
+    color: rgb(221, 182, 158);
+    justify-content: center;
+    align-items: center;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    padding-bottom: 1px;
+    padding-top: 10px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(65, 20, 0, 0.53);
+    border-right-color: rgba(65, 20, 0, 0.53);
+    border-top-color: rgba(65, 20, 0, 0.53);
+    border-bottom-color: rgba(65, 20, 0, 0.53);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    cursor: initial;
+}
+
+.btn-done:active {
+    bottom: auto;
+    width: 90%;
+    -unity-font: resource('Fonts & Materials/GreatVibes-Regular');
+    font-size: 39px;
+    background-color: rgba(31, 10, 0, 0.9);
+    color: rgb(221, 182, 158);
+    justify-content: center;
+    align-items: center;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    padding-bottom: 1px;
+    padding-top: 10px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(65, 20, 0, 0.53);
+    border-right-color: rgba(65, 20, 0, 0.53);
+    border-top-color: rgba(65, 20, 0, 0.53);
+    border-bottom-color: rgba(65, 20, 0, 0.53);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    cursor: initial;
+}
+
+.btn-key {
+    background-image: url('/Assets/Icons/key_glow.png');
+    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(88, 88, 88, 0);
+    width: 10%;
+    height: 80px;
+    position: relative;
+    top: auto;
+    left: auto;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    align-items: center;
+    justify-content: flex-start;
+    -unity-text-align: middle-center;
+    opacity: 1;
+}
+
+.btn-key:hover {
+    background-image: url('/Assets/Icons/key_glow.png');
+    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(88, 88, 88, 0);
+    width: 10%;
+    height: 80px;
+    position: relative;
+    top: auto;
+    left: auto;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    align-items: center;
+    justify-content: flex-start;
+    -unity-text-align: middle-center;
+    opacity: 1;
+    -unity-background-image-tint-color: rgb(159, 112, 67);
+}

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Inventory : MonoBehaviour
 {
@@ -10,44 +10,30 @@ public class Inventory : MonoBehaviour
     private List<Key> _keycards = new List<Key>();
     private List<string> _tools = new List<string>();
 
-    [SerializeField] private Canvas _canvasCollect;
-    [SerializeField] private Image _tKeycardRed;
+    [SerializeField] private Canvas canvasCollect;
+    /*[SerializeField] private Image _tKeycardRed;
     [SerializeField] private Image _tKeycardBlue;
     [SerializeField] private Image _tKeycardGreen;
-    [SerializeField] private Image _tKeycardBrown;
+    [SerializeField] private Image _tKeycardBrown; 
     [SerializeField] private Image _tKeycardPink;
     [SerializeField] private Image _tKeycardPurple;
     [SerializeField] private Image _tKeycardOrange;
     [SerializeField] private Image _tKeycardYellow;
-    [SerializeField] private Image _tKey;
+    [SerializeField] private Image _tKey;*/
 
-    private Image[] _tKeys = new Image[8];
+    //private UnityEngine.UI.Image[] _tKeys = new UnityEngine.UI.Image[8];
 
     public void Start()
     {
         // instantiate keys
-        _tKey.gameObject.SetActive(false);
+        /*_tKey.gameObject.SetActive(false);
         for(int i = 0; i < 8; i++)
         {
-            Image keyImg = Instantiate(_tKey, _canvasCollect.transform) as Image;
+            Image keyImg = Instantiate(_tKey, canvasCollect.transform) as Image;
             keyImg.transform.Translate(-(_tKey.rectTransform.rect.width / 2) * i, 0, 0);
             _tKeys[i] = keyImg;
-        }
-
-        UpdateCanvas();
-    }
-
-
-    public void Update()
-    {
-        // drop key
-        if (Input.GetKey(KeyCode.E))
-        {
-            if(_keys.Count > 0)
-            {
-                
-            }
-        }
+        }*/
+        //UpdateCanvas();
     }
 
 
@@ -88,6 +74,7 @@ public class Inventory : MonoBehaviour
 
     private void UpdateCanvas()
     {
+        /*
         // update keys
         for (int i = 0; i < _tKeys.Length; i++)
             _tKeys[i].gameObject.SetActive(i <= _keys.Count - 1);
@@ -119,6 +106,7 @@ public class Inventory : MonoBehaviour
                 cardsTranslated++;
             }
         }
+        */
     }
 
 }
