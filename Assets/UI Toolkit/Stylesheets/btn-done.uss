@@ -82,7 +82,7 @@
     cursor: initial;
 }
 
-.btn-key {
+.btn-slot {
     background-image: url('/Assets/Icons/key_glow.png');
     -unity-background-scale-mode: scale-and-crop;
     background-color: rgba(88, 88, 88, 0);
@@ -91,32 +91,64 @@
     position: relative;
     top: auto;
     left: auto;
-    border-left-color: rgba(255, 255, 255, 0);
-    border-right-color: rgba(255, 255, 255, 0);
-    border-top-color: rgba(255, 255, 255, 0);
-    border-bottom-color: rgba(255, 255, 255, 0);
+    border-left-color: rgba(123, 26, 0, 0.37);
+    border-right-color: rgba(123, 26, 0, 0.37);
+    border-top-color: rgba(123, 26, 0, 0.37);
+    border-bottom-color: rgba(123, 26, 0, 0.37);
+    align-items: center;
+    justify-content: flex-start;
+    -unity-text-align: middle-center;
+    opacity: 1;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    margin-right: 4px;
+}
+
+.btn-slot:hover {
+    background-image: url('/Assets/Icons/key_glow.png');
+    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(101, 38, 0, 0.74);
+    width: 10%;
+    height: 80px;
+    position: relative;
+    top: auto;
+    left: auto;
+    border-left-color: rgb(156, 97, 70);
+    border-right-color: rgb(156, 97, 70);
+    border-top-color: rgb(156, 97, 70);
+    border-bottom-color: rgb(156, 97, 70);
     align-items: center;
     justify-content: flex-start;
     -unity-text-align: middle-center;
     opacity: 1;
 }
 
-.btn-key:hover {
+.btn-key-slot {
+    margin-left: 0;
+    margin-right: 4px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
     background-image: url('/Assets/Icons/key_glow.png');
-    -unity-background-scale-mode: scale-and-crop;
-    background-color: rgba(88, 88, 88, 0);
-    width: 10%;
-    height: 80px;
-    position: relative;
-    top: auto;
-    left: auto;
-    border-left-color: rgba(255, 255, 255, 0);
-    border-right-color: rgba(255, 255, 255, 0);
-    border-top-color: rgba(255, 255, 255, 0);
-    border-bottom-color: rgba(255, 255, 255, 0);
-    align-items: center;
-    justify-content: flex-start;
-    -unity-text-align: middle-center;
-    opacity: 1;
-    -unity-background-image-tint-color: rgb(159, 112, 67);
+}
+
+.btn-keycard-slot {
+    margin-left: 0;
+    margin-right: 4px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-image: url('/Assets/Icons/keycard_red.png');
 }

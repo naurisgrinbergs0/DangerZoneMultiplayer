@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static Door;
 
 public class Key : MonoBehaviour
 {
-    public string code;
-    [SerializeField] private Color color;
+    public DoorCode code;
 
     public void Start()
     {
         if(CompareTag("Keycard"))
-            GetComponent<Renderer>().materials[0].color = color;
+            GetComponent<Renderer>().materials[0].color = KEYCARD_CODE_COLORS[code];
     }
 
     public void AddToInventory(Inventory inventory)

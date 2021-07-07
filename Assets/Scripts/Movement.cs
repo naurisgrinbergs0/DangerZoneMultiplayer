@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
 
     public Joystick joystickMove;
     public Joystick joystickRotate;
-    public Transform camera;
+    public Transform cameraObj;
     public GameObject canvas;
 
     void Start()
@@ -115,7 +115,7 @@ public class Movement : MonoBehaviour
         _xRotation -= vInput;
         _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
-        camera.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+        cameraObj.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
         gameObject.transform.Rotate(Vector3.up * hInput * Time.deltaTime);
     }
 

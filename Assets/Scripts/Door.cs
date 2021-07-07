@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,33 @@ public class Door : MonoBehaviour
     [SerializeField] private Color color;
     [SerializeField] private float angleOffset;
     public bool isLocked = false;
-    public string code;
+    public DoorCode code;
+
+    public enum DoorCode
+    {
+        NONE,
+        A, B, C, D, E, F, G, H,
+        RED, BLUE, GREEN, BROWN, PINK, PURPLE, ORANGE, YELLOW
+    }
+    public static Dictionary<DoorCode, Color> KEYCARD_CODE_COLORS = new Dictionary<DoorCode, Color>() {
+        {DoorCode.RED, Color.red },
+        {DoorCode.BLUE, Color.blue },
+        {DoorCode.GREEN, Color.green },
+        {DoorCode.BROWN, new Color(0.478f, 0.219f, 0) },
+        {DoorCode.PINK, new Color(1, 0.458f, 0.952f) },
+        {DoorCode.PURPLE, new Color(0.650f, 0, 0.741f) },
+        {DoorCode.ORANGE, new Color(1, 0.470f, 0.101f) },
+        {DoorCode.YELLOW, Color.yellow }
+    };
+    public static DoorCode ParseDoorCode(string code)
+    {
+        foreach (DoorCode dc in Enum.GetValues(typeof(DoorCode)))
+            if (dc.ToString("g") == code)
+                return dc;
+        return DoorCode.NONE;
+    }
+
+
 
     public void Start()
     {

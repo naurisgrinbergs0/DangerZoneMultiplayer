@@ -4,16 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Touch : MonoBehaviour
+public class Interaction : MonoBehaviour
 {
-    [SerializeField] private LayerMask _layerMask;
-    public Inventory inventory;
-    private float _reachDistance = 2;
+    [SerializeField] private LayerMask layerMask;
+    private Inventory inventory;
+    private float reachDistance = 2;
+
+
+    private void Start()
+    {
+        inventory = GetComponent<Inventory>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        // joystick
+        /*if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
@@ -24,18 +31,18 @@ public class Touch : MonoBehaviour
                     // copy all from below
                 }
             }
-        }
+        }*/
 
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~_layerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~layerMask))
             {
                 if (hit.collider != null)
                 {
-                    if (hit.distance < _reachDistance)
+                    if (hit.distance < reachDistance)
                     {
                         switch (hit.collider.gameObject.tag)
                         {
