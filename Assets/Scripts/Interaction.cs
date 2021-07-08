@@ -8,7 +8,8 @@ public class Interaction : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
     private Inventory inventory;
-    private float reachDistance = 2;
+    private float reachDistance = 3;
+    public bool ignoreInputs = false;
 
 
     private void Start()
@@ -19,49 +20,52 @@ public class Interaction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // joystick
-        /*if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        if (!ignoreInputs)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            // joystick
+            /*if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
             {
-                if(hit.collider != null)
+                Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    // copy all from below
+                    if(hit.collider != null)
+                    {
+                        // copy all from below
+                    }
                 }
-            }
-        }*/
+            }*/
 
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~layerMask))
+            if (Input.GetMouseButtonDown(0))
             {
-                if (hit.collider != null)
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~layerMask))
                 {
-                    if (hit.distance < reachDistance)
+                    if (hit.collider != null)
                     {
-                        switch (hit.collider.gameObject.tag)
+                        if (hit.distance < reachDistance)
                         {
-                            case "Key":
-                                hit.collider.gameObject.GetComponent<Key>().AddToInventory(inventory);
-                                break;
-                            case "Keycard":
-                                hit.collider.gameObject.GetComponent<Key>().AddToInventory(inventory);
-                                break;
-                            case "Door":
-                            case "DoorCompanion":
-                                Key matchingKey = hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeys());
-                                if (matchingKey != null)
-                                    inventory.RemoveKey(matchingKey);
-                                break;
-                            case "DoorKeycard":
-                            case "DoorKeycardCompanion":
-                                hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeycards());
-                                break;
+                            switch (hit.collider.gameObject.tag)
+                            {
+                                case "Key":
+                                    hit.collider.gameObject.GetComponent<Key>().AddToInventory(inventory);
+                                    break;
+                                case "Keycard":
+                                    hit.collider.gameObject.GetComponent<Key>().AddToInventory(inventory);
+                                    break;
+                                case "Door":
+                                case "DoorCompanion":
+                                    Key matchingKey = hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeys());
+                                    if (matchingKey != null)
+                                        inventory.RemoveKey(matchingKey);
+                                    break;
+                                case "DoorKeycard":
+                                case "DoorKeycardCompanion":
+                                    hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeycards());
+                                    break;
+                            }
                         }
                     }
                 }

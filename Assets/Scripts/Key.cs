@@ -6,7 +6,7 @@ using static Door;
 
 public class Key : MonoBehaviour
 {
-    public DoorCode code;
+    public DoorCode code = DoorCode.NONE;
 
     public void Start()
     {

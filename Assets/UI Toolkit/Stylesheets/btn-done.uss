@@ -111,7 +111,6 @@
 }
 
 .btn-slot:hover {
-    background-image: url('/Assets/Icons/key_glow.png');
     -unity-background-scale-mode: scale-and-crop;
     background-color: rgba(101, 38, 0, 0.74);
     width: 10%;

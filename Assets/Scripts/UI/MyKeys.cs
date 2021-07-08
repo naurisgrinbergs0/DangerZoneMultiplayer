@@ -10,6 +10,7 @@ public class MyKeys : MonoBehaviour
     private VisualElement uiRoot;
     [SerializeField] Inventory inventory;
     [SerializeField] Movement movement;
+    [SerializeField] Interaction interaction;
     private Dictionary<DoorCode, Button> uiBtnKeySlots = new Dictionary<DoorCode, Button>();
     private Dictionary<DoorCode, Button> uiBtnKeycardSlots = new Dictionary<DoorCode, Button>();
 
@@ -51,6 +52,8 @@ public class MyKeys : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
         {
             movement.ignoreInputs = true;
+            interaction.ignoreInputs = true;
+
             ui.rootVisualElement.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             UnityEngine.Cursor.visible = true;
@@ -73,6 +76,7 @@ public class MyKeys : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
         movement.ignoreInputs = false;
+        interaction.ignoreInputs = false;
     }
 
     void DropKey(DoorCode btnCode)

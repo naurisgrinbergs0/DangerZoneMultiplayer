@@ -9,7 +9,7 @@ public class Door : MonoBehaviour
     [SerializeField] private Color color;
     [SerializeField] private float angleOffset;
     public bool isLocked = false;
-    public DoorCode code;
+    public DoorCode code = DoorCode.NONE;
 
     public enum DoorCode
     {
