@@ -21,6 +21,7 @@ public class Movement : MonoBehaviour
 
     public Joystick joystickMove;
     public Joystick joystickRotate;
+    public GameObject playerBody;
     public Transform cameraObj;
     public GameObject canvas;
 
@@ -60,6 +61,10 @@ public class Movement : MonoBehaviour
             vInput = -1;
 #endif
 
+        // with joystick player could walk & run
+        //playerBody.GetComponent<Animator>().SetBool("isWalking", vInput != 0);
+        playerBody.GetComponent<Animator>().SetBool("isRunning", vInput != 0);
+
         // process jump and gravity
         if (GetComponent<CharacterController>().isGrounded)
         {
@@ -90,14 +95,16 @@ public class Movement : MonoBehaviour
         }
         if (_isCrouching)
         {
+            playerBody.GetComponent<Animator>().SetBool("isCrouching", true);
             GetComponent<CharacterController>().height = 0.7f;
-            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+            //gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
             //transform.position = new Vector3(transform.position.x, transform.position.y - 0.01f, transform.position.z);
         }
         else
         {
+            playerBody.GetComponent<Animator>().SetBool("isCrouching", false);
             GetComponent<CharacterController>().height = 1.8f;
-            gameObject.transform.localScale = new Vector3(1, 1f, 1);
+            //gameObject.transform.localScale = new Vector3(1, 1f, 1);
             //transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
     }
