@@ -5,7 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     private float _speedJump = 6;
-    private float _speedMove = 5;
+    private float _speedMove = 7;
     private float _speedRotateJoystickX = 100;
     private float _speedRotateJoystickY = 100;
     private float _speedRotateMouseX = 200;
@@ -16,8 +16,13 @@ public class Movement : MonoBehaviour
     private float _initialScale;
     private float _xRotation = 0f;
     private Vector3 _moveDirection = Vector3.zero;
-    private bool _isCrouching = false;
     public bool ignoreInputs = false;
+
+    private bool _isCrouching = false;
+    private bool _isJumping = false;
+    private bool _isWalking = false;
+    private bool _isRunning = false;
+    private bool _isSneaking = false;
 
     public Joystick joystickMove;
     public Joystick joystickRotate;
@@ -52,18 +57,22 @@ public class Movement : MonoBehaviour
 
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.A))
-            hInput = -1;
+            hInput = -.5f;
         if (Input.GetKey(KeyCode.D))
-            hInput = 1;
+            hInput = .5f;
         if (Input.GetKey(KeyCode.W))
-            vInput = 1;
+            vInput = .5f;
         if (Input.GetKey(KeyCode.S))
-            vInput = -1;
+            vInput = -.5f;
+        if (Input.GetKey("left shift"))
+        {
+            vInput *= 2f;
+            hInput *= 2f;
+        }
 #endif
 
         // with joystick player could walk & run
-        //playerBody.GetComponent<Animator>().SetBool("isWalking", vInput != 0);
-        playerBody.GetComponent<Animator>().SetBool("isRunning", vInput != 0);
+        playerBody.GetComponent<Animator>().SetFloat(Animator.StringToHash("Velocity"), vInput);
 
         // process jump and gravity
         if (GetComponent<CharacterController>().isGrounded)
@@ -71,9 +80,18 @@ public class Movement : MonoBehaviour
             _moveDirection = new Vector3(hInput, 0, vInput);
             _moveDirection = transform.TransformDirection(_moveDirection);
             _moveDirection *= _speedMove;
-            if (Input.GetButton("Jump"))
-                _moveDirection.y = _speedJump;
 
+            if (_isJumping)
+            {
+                _isJumping = false;
+                playerBody.GetComponent<Animator>().SetBool("isJumping", false);
+            }
+            if (Input.GetButtonDown("Jump"))
+            {
+                _moveDirection.y = _speedJump;
+                _isJumping = true;
+                playerBody.GetComponent<Animator>().SetBool("isJumping", true);
+            }
         }
         _moveDirection.y -= _gravity * Time.deltaTime;
         GetComponent<CharacterController>().Move(_moveDirection * Time.deltaTime);
@@ -86,23 +104,25 @@ public class Movement : MonoBehaviour
                 // uncrouch only if there is nothing above or it is far
                 Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit);
                 if(hit.collider == null || hit.distance > 2)
+                {
                     _isCrouching = false;
+                    playerBody.GetComponent<Animator>().Play("crouch", -1, 1);
+                }
             }
             else
             {
                 _isCrouching = true;
+                //playerBody.GetComponent<Animator>().SetBool("isCrouching", true);
             }
         }
         if (_isCrouching)
         {
-            playerBody.GetComponent<Animator>().SetBool("isCrouching", true);
             GetComponent<CharacterController>().height = 0.7f;
             //gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
             //transform.position = new Vector3(transform.position.x, transform.position.y - 0.01f, transform.position.z);
         }
         else
         {
-            playerBody.GetComponent<Animator>().SetBool("isCrouching", false);
             GetComponent<CharacterController>().height = 1.8f;
             //gameObject.transform.localScale = new Vector3(1, 1f, 1);
             //transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
