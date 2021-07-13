@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine; 
@@ -20,15 +21,19 @@ public class Movement : MonoBehaviour
 
     private bool _isCrouching = false;
     private bool _isJumping = false;
-    private bool _isWalking = false;
-    private bool _isRunning = false;
-    private bool _isSneaking = false;
 
     public Joystick joystickMove;
     public Joystick joystickRotate;
     public GameObject playerBody;
     public Transform cameraObj;
     public GameObject canvas;
+
+    private float velocityZ = 0;
+    private float velocityX = 0;
+    private float _acceleration = 2;
+    private float _deceleration = 2;
+    private float _maxRunVel = 1;
+    private float _maxWalkVel = .5f;
 
     void Start()
     {
@@ -52,32 +57,21 @@ public class Movement : MonoBehaviour
     private void Move()
     {
         // receive inputs
-        float hInput = joystickMove.Horizontal * _speedMove;
-        float vInput = joystickMove.Vertical * _speedMove;
+        //vSideways = joystickMove.Horizontal * _speedMove;
+        //vForward = joystickMove.Vertical * _speedMove;
 
 #if UNITY_EDITOR
-        if (Input.GetKey(KeyCode.A))
-            hInput = -.5f;
-        if (Input.GetKey(KeyCode.D))
-            hInput = .5f;
-        if (Input.GetKey(KeyCode.W))
-            vInput = .5f;
-        if (Input.GetKey(KeyCode.S))
-            vInput = -.5f;
-        if (Input.GetKey("left shift"))
-        {
-            vInput *= 2f;
-            hInput *= 2f;
-        }
+        CalculateVelocity();
 #endif
 
         // with joystick player could walk & run
-        playerBody.GetComponent<Animator>().SetFloat(Animator.StringToHash("Velocity"), vInput);
+        playerBody.GetComponent<Animator>().SetFloat(Animator.StringToHash("vForward"), velocityZ);
+        playerBody.GetComponent<Animator>().SetFloat(Animator.StringToHash("vSideways"), velocityX);
 
         // process jump and gravity
         if (GetComponent<CharacterController>().isGrounded)
         {
-            _moveDirection = new Vector3(hInput, 0, vInput);
+            _moveDirection = new Vector3(velocityX, 0, velocityZ);
             _moveDirection = transform.TransformDirection(_moveDirection);
             _moveDirection *= _speedMove;
 
@@ -127,6 +121,47 @@ public class Movement : MonoBehaviour
             //gameObject.transform.localScale = new Vector3(1, 1f, 1);
             //transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
+    }
+
+    private void CalculateVelocity()
+    {
+        bool forwardPress = Input.GetKey("w");
+        bool backwardPress = Input.GetKey("s");
+        bool leftPress = Input.GetKey("a");
+        bool rightPress = Input.GetKey("d");
+        bool shiftPress = Input.GetKey("left shift");
+
+        float maxVel = shiftPress ? _maxRunVel : _maxWalkVel;
+
+        // accelerate
+        if (forwardPress && velocityZ < maxVel)
+            velocityZ += Time.deltaTime * _acceleration;
+        if (backwardPress && velocityZ > -maxVel)
+            velocityZ -= Time.deltaTime * _acceleration;
+        if (leftPress && velocityX > -maxVel)
+            velocityX -= Time.deltaTime * _acceleration;
+        if (rightPress && velocityX < maxVel)
+            velocityX += Time.deltaTime * _acceleration;
+        
+        // decelerate walk
+        if(!forwardPress && velocityZ > 0)
+            velocityZ = Mathf.Max(velocityZ - Time.deltaTime * _deceleration, 0);
+        if (!backwardPress && velocityZ < 0)
+            velocityZ = Mathf.Min(velocityZ + Time.deltaTime * _deceleration, 0);
+        if (!rightPress && velocityX > 0)
+            velocityX = Mathf.Max(velocityX - Time.deltaTime * _deceleration, 0);
+        if (!leftPress && velocityX < 0)
+            velocityX = Mathf.Min(velocityX + Time.deltaTime * _deceleration, 0);
+
+        // decelerate run
+        if (forwardPress && !shiftPress && velocityZ > _maxWalkVel)
+            velocityZ = Mathf.Max(velocityZ - Time.deltaTime * _deceleration, _maxWalkVel);
+        if (backwardPress && !shiftPress && velocityZ < -_maxWalkVel)
+            velocityZ = Mathf.Min(velocityZ + Time.deltaTime * _deceleration, -_maxWalkVel);
+        if (rightPress && !shiftPress && velocityX > _maxWalkVel)
+            velocityX = Mathf.Max(velocityX - Time.deltaTime * _deceleration, _maxWalkVel);
+        if (leftPress && !shiftPress && velocityX < -_maxWalkVel)
+            velocityX = Mathf.Min(velocityX + Time.deltaTime * _deceleration, -_maxWalkVel);
     }
 
     private void Rotate()
