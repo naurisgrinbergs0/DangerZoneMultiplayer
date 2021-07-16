@@ -47,23 +47,27 @@ public class Interaction : MonoBehaviour
                     {
                         if (hit.distance < reachDistance)
                         {
-                            switch (hit.collider.gameObject.tag)
+                            GameObject go = hit.collider.gameObject;
+                            switch (go.tag)
                             {
                                 case "Key":
-                                    hit.collider.gameObject.GetComponent<Key>().AddToInventory(inventory);
+                                    go.GetComponent<Key>().AddToInventory(inventory);
                                     break;
                                 case "Keycard":
-                                    hit.collider.gameObject.GetComponent<Key>().AddToInventory(inventory);
+                                    go.GetComponent<Key>().AddToInventory(inventory);
                                     break;
                                 case "Door":
                                 case "DoorCompanion":
-                                    Key matchingKey = hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeys());
+                                    Key matchingKey = go.GetComponent<Door>().Toggle(inventory.GetKeys());
                                     if (matchingKey != null)
                                         inventory.RemoveKey(matchingKey);
                                     break;
                                 case "DoorKeycard":
                                 case "DoorKeycardCompanion":
-                                    hit.collider.gameObject.GetComponent<Door>().Toggle(inventory.GetKeycards());
+                                    go.GetComponent<Door>().Toggle(inventory.GetKeycards());
+                                    break;
+                                case "Drawer":
+                                    go.GetComponent<Drawer>().Toggle();
                                     break;
                             }
                         }

@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     private float _speedRotateJoystickY = 100;
     private float _speedRotateMouseX = 200;
     private float _speedRotateMouseY = 5;
-    private float _pushPower = 2;
+    private float _pushPower = 1;//2;
     private float _gravity = 20;
     
     private float _initialScale;
@@ -198,10 +198,8 @@ public class Movement : MonoBehaviour
         // we only push objects to the sides never up and down
         Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
 
-        // If you know how fast your character is trying to move,
-        // then you can also multiply the push velocity by that.
-
         // Apply the push
-        body.velocity = pushDir * _pushPower;
+        //body.velocity = pushDir * (body.mass * .1f);
+        body.AddForce(pushDir * (body.mass * .1f), ForceMode.Impulse);
     }
 }
